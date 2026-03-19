@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+<style>.code{font-family: monospace;}</style>
+<title>HTML AUDIO</title>
+</head>
+<body>
+<h1>Audio with HTML <span class="code">&lt;audio&gt;</span></h1>
+	
+<!--
+The <audio> element allows us to add playable audio to a web page. It works in a similar fashion to <img>. You add a src attribute linking to your audio file. Use mp3 for best cross-browser support. Bandwidth tip:  Unless you are relying on stereophonic effects, use mono audio files; it cuts the file size in half.
+-->
+	
+	<p>
+		<!-- <audio> is an inline element, so we have put it inside a block element.-->
+        <audio src="gangbusters.mp3" ></audio> <!-- Can also use "controls", "autoplay" or "loop" attributes -->
+    </p>	
+	
+<!--
+So, attributes... HTML5 allows us to avoid the redundant controls="controls" for boolean attributes, and just state the attribute, which implies true.  The 'controls' attribute, tells the browser to add playback controls for the element.  Each browser styles its player differently.  Your user will not be able to play the audio without it, unless you provide your own controls through JavaScript.
+Other attributes include 'autoplay' and 'loop'.  Autoplay will start playback of the element as soon as it is loaded (and, therefore, not require controls to start it).  However, it is considered best practice to always let the user start audio and video by their choice - and be able to stop it. Many browsers will not allow media to play without a user interaction.
+Loop, will start the audio file over once it has finished playing and continue ad nauseam.
+Again, our hope is that our users won't get to the point of nausea, so use this attribute judiciously and ALWAYS give your user the ability to stop playing audio.
+-->
+
+
+<!--
+The audio (and video) element as a media API that let's us do all kinds of amazing things through JavaScript. We can create our own media player GUI, or modify the audio, or program logic for certain points in the audio - you know how you get those commercials when you're playing a streaming video?
+-->
+	<p>
+		<button id="seanBtn__start">Play</button>
+		<button id="seanBtn__stop">Stop</button>
+		
+        <audio id="sean__audio" src="gangbusters.mp3" ></audio>
+		<!--This audio has no controls, we will control with JS below...-->
+    </p>
+	
+	
+	
+<!--JS included here to keep this to one file. Don't copy this!-->
+<script>
+ var START = document.getElementById("seanBtn__start"); // variable to hold the start button element
+ var STOP = document.getElementById("seanBtn__stop"); // variable to hold the stop button element
+ 
+ //Just like other elements, we start by creating a variable to hold the element...
+ var MyAudioElement = document.getElementById("sean__audio"); // variable to hold the audio element
+ 
+ //Now we can use the media API methods to control playback.
+ START.addEventListener('click', function(){
+	MyAudioElement.play();
+ });
+ 
+  STOP.addEventListener('click', function(){
+	MyAudioElement.pause();
+	MyAudioElement.currentTime = 0;
+ });
+ //Notice above, there isn't a .stop() method. We use .pause() to stop the track where it is on the time line, then set the .currentTime property to 0, effectively returning the "play head" to the start of the audio.
+</script>
+
+	<p>For more details on the methods, properties and events of the multimedia API, check out the <a href="https://www.w3schools.com/tags/ref_av_dom.asp" target="_blank">W3Schools HTML Audio/Video DOM Reference</a> page.</p>
+</body>
+</html>
